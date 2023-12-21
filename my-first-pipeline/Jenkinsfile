@@ -1,12 +1,18 @@
 pipeline {
-  agent {
-    docker { image 'node:16-alpine' }
-  }
-  stages {
-    stage('Test') {
-      steps {
-        sh 'node --version'
-      }
+    agent any // Or specify 'agent none' or a specific label based on your requirements
+
+    stages {
+        stage('Example') {
+            steps {
+                // Your pipeline steps here
+                script {
+                    // Using Docker within a stage:
+                    docker.image('node:16-alpine').inside {
+                        // Commands to execute inside the Docker container
+                        sh 'node --version'
+                    }
+                }
+            }
+        }
     }
-  }
 }
